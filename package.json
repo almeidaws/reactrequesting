@@ -1,0 +1,25 @@
+{
+  "name": "@dr.cash/requesting",
+  "version": "1.0.0",
+  "description": "Utilities hooks used to build the networking layer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/drcash/react-requesting/src"
+  },
+  "keywords": [
+    "react",
+    "requesting",
+    "utilities",
+    "useRequest"
+  ],
+  "author": "Gustavo Almeida",
+  "license": "ISC",
+  "dependencies": {
+    "@dr.cash/controlhooks": "^1.0.0",
+    "react": "^16.13.1"
+  }
+}
