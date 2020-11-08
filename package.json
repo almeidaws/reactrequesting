@@ -1,6 +1,6 @@
 {
   "name": "@dr.cash/requesting",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Utilities hooks used to build the networking layer",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
   "author": "Gustavo Almeida",
   "license": "ISC",
   "dependencies": {
+    "@dr.cash/controlhooks": "^1.0.4",
     "query-string": "^6.13.7",
     "react-router-dom": "^5.2.0"
   },
