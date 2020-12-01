@@ -37,7 +37,7 @@ const useUrl = () => {
         if (typeof key !== "string")
             throw new Error("'key' should be of type string.");
         if (key.trim().length === 0) throw new Error("'key' can't be empty");
-        setQuery(key,undefined)
+        queryParams.set(key, undefined);
     }
 
     const setQueryIfUndefined = (key, value) => {
@@ -66,7 +66,7 @@ const useUrl = () => {
         if (typeof dialog !== "string")
             throw new Error("'dialog' should be of type string.");
         if (dialog.trim().length === 0) throw new Error("'dialog' can't be empty");
-        setQuery("dialog", dialog);
+        queryParams.set("dialog", dialog);
     };
 
     const isDialogOpened = (dialog) => {
@@ -77,20 +77,20 @@ const useUrl = () => {
     };
 
     const closeDialog = () => {
-        setQuery("dialog", undefined);
+        queryParams.set("dialog",undefined)
     };
 
     const dispatchRefetch = (what) => {
         if (typeof what !== "string")
             throw new Error("'what' should be of type string.");
         if (what.trim().length === 0) throw new Error("'what' can't be empty");
-        setQuery("refetch", what);
+        queryParams.set("refetch",what)
     };
 
-    const consumeRefetch = () => setQuery("refetch", undefined);
+    const consumeRefetch = () => queryParams.set("refetch",undefined);
 
     useEffect(() => {
-        setQuery("refetch", undefined);
+        queryParams.set("refetch",undefined)
     }, []);
 
     return {
