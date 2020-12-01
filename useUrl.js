@@ -67,11 +67,7 @@ const useUrl = () => {
         return getQuery("dialog") === dialog;
     };
 
-    const closeDialog = (dialog) => {
-        if (typeof dialog !== "string")
-            throw new Error("'dialog' should be of type string.");
-        if (dialog.trim().length === 0) throw new Error("'dialog' can't be empty");
-        queryParams.set("dialog", undefined);
+    const closeDialog = () => {
         setQuery("dialog", undefined);
     };
 
