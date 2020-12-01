@@ -31,6 +31,13 @@ const useUrl = () => {
         queryParams.set(key, value);
     };
 
+    const deleteQuery = (key) => {
+        if (typeof key !== "string")
+            throw new Error("'key' should be of type string.");
+        if (key.trim().length === 0) throw new Error("'key' can't be empty");
+        setQuery(key,undefined)
+    }
+
     const setQueryIfUndefined = (key, value) => {
         if (typeof key !== "string")
             throw new Error("'key' should be of type string.");
@@ -95,7 +102,8 @@ const useUrl = () => {
         getPath,
         setQuery,
         setQueryIfUndefined,
-        setQueryIfNotUndefined
+        setQueryIfNotUndefined,
+        deleteQuery
     };
 };
 
