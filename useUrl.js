@@ -82,12 +82,7 @@ const useUrl = () => {
         setQuery("refetch", what);
     };
 
-    const consumeRefetch = (what) => {
-        if (typeof what !== "string")
-            throw new Error("'what' should be of type string.");
-        if (what.trim().length === 0) throw new Error("'what' can't be empty");
-        setQuery("refetch", undefined);
-    };
+    const consumeRefetch = () => setQuery("refetch", undefined);
 
     useEffect(() => {
         setQuery("refetch", undefined);
