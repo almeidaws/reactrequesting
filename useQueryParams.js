@@ -72,8 +72,12 @@ const useQueryParams = () => {
         );
     };
 
+    const getAll = () => {
+        return queryString.parse(window.location.search);
+    }
+
     const get = (nameOrArray, defaultValue) => {
-        const queryParams = queryString.parse(window.location.search);
+        const queryParams = getAll();
         if (Array.isArray(nameOrArray)) {
             return nameOrArray.map((nameOrTuple) =>
                 Array.isArray(nameOrTuple)
@@ -90,6 +94,7 @@ const useQueryParams = () => {
         setIfUndefined,
         setIfNotUndefined,
         get,
+        getAll,
     });
 
     useEffect(() => {
@@ -98,6 +103,7 @@ const useQueryParams = () => {
             setIfUndefined,
             setIfNotUndefined,
             get,
+            getAll,
         });
     }, [window.location.search]);
 
