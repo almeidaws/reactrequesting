@@ -28,6 +28,8 @@ const useUrl = () => {
             throw new Error("'value' should be of type string or undefined.");
         if (typeof value === "string" && value.trim().length === 0)
             throw new Error("'value' can't be empty");
+        if(key === "refetch") throw new Error("Please, use the 'dispatchRefetch' or 'consumeRefetch' method to increase legibility.")
+        if(key === "dialog") throw new Error("Please, use the 'openDialog' or 'closeDialog' method to increase legibility.")
         queryParams.set(key, value);
     };
 
