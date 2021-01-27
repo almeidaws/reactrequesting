@@ -20,6 +20,8 @@ const useUrl = () => {
         return queryParams.get(key);
     };
 
+
+
     const setQuery = (key, value) => {
         if (typeof key !== "string")
             throw new Error("'key' should be of type string.");
@@ -32,6 +34,14 @@ const useUrl = () => {
         if(key === "dialog") throw new Error("Please, use the 'openDialog' or 'closeDialog' method to increase legibility.")
         queryParams.set(key, value);
     };
+
+    const emit = (eventName, eventKey) => {
+        if(eventKey === undefined) {
+            setQuery("event", `${eventName}.${Math.random().toString(36).substring(7)}`)
+            return
+        }
+        setQuery("event", `${eventName}.${eventKey}.${Math.random().toString(36).substring(7)}`)
+    }
 
     const deleteQuery = (key) => {
         if (typeof key !== "string")
@@ -105,7 +115,8 @@ const useUrl = () => {
         setQuery,
         setQueryIfUndefined,
         setQueryIfNotUndefined,
-        deleteQuery
+        deleteQuery,
+        emit
     };
 };
 
