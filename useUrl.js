@@ -89,14 +89,18 @@ const useUrl = () => {
     const closeDialog = () => {
         queryParams.set("dialog",undefined)
     };
-
+    /**
+     * @deprecated Since version 1.4.1 Will be deleted in version 2.0. Use useUrlEvent and useUrl.emit() together instead.
+     */
     const dispatchRefetch = (what) => {
         if (typeof what !== "string")
             throw new Error("'what' should be of type string.");
         if (what.trim().length === 0) throw new Error("'what' can't be empty");
         queryParams.set("refetch",what)
     };
-
+    /**
+     * @deprecated Since version 1.4.1 Will be deleted in version 2.0. Use useUrlEvent and useUrl.emit() together instead.
+     */
     const consumeRefetch = () => queryParams.set("refetch",undefined);
 
     useEffect(() => {

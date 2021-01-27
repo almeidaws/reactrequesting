@@ -1,7 +1,9 @@
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
 import { useState, useEffect } from "react";
-
+/**
+ * @deprecated Since version 1.4.1 Will be deleted in version 2.0. Use useUrl() instead.
+ */
 const useQueryParams = () => {
     const history = useHistory();
 
