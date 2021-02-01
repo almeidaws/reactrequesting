@@ -1,4 +1,4 @@
-import { useFiredHook } from "reactcontrolhooks";
+import { useFiredHook } from "react-control-hooks";
 import useRequest from "./useRequest";
 
 const useFiredRequest = (request, requestBody) => {

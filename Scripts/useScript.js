@@ -1,4 +1,4 @@
-import { useSkippableEffect } from "reactcontrolhooks";
+import { useSkippableEffect } from "react-control-hooks";
 import { useState } from "react";
 import { scripts } from "./scripts";
 
