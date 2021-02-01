@@ -1,4 +1,4 @@
-import { useSkippableEffect } from "@dr.cash/controlhooks";
+import { useSkippableEffect } from "reactrequesting";
 import { useState } from "react";
 import { scripts } from "./scripts";
 

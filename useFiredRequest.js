@@ -1,4 +1,4 @@
-import { useFiredHook } from "@dr.cash/controlhooks";
+import { useFiredHook } from "reactrequesting";
 import useRequest from "./useRequest";
 
 const useFiredRequest = (request, requestBody) => {
