@@ -1,6 +1,6 @@
 {
   "name": "reactrequesting",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Utilities hooks used to build the networking layer",
   "main": "index.js",
   "scripts": {
@@ -19,10 +19,10 @@
   "author": "Gustavo Almeida",
   "license": "ISC",
   "dependencies": {
-    "reactrequesting": "^1.0.4",
     "lodash": "^4.17.20",
     "query-string": "^6.13.7",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "reactcontrolhooks": "^1.0.4"
   },
   "peerDependencies": {
     "react": "^16.13.1"

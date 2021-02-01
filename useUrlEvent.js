@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useUrl } from "./index";
-import { useSkippableEffect } from "reactrequesting";
+import { useSkippableEffect } from "reactcontrolhooks";
 
 const useUrlEvent = (name, id) => {
   const [consume, setConsume] = useState(null);
