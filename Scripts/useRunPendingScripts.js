@@ -25,7 +25,7 @@ const useRunPendingScripts = () => {
     );
     setPreviousParams(params);
     while (scripts.length > 0) scripts.pop();
-    scripts.push(remaining);
+    while (remaining.length > 0) scripts.push(remaining.pop());
     pending.forEach(({ action }) => action(url));
   }, [paramsAsString]);
 };
