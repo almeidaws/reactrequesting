@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useUrl } from "./index";
 import { useSkippableEffect } from "react-control-hooks";
 
+/**
+* @deprecated Since version 1.6.0 Will be deleted in version 2.0. Use useListenUrlEvent() instead.
+*/
 const useUrlEvent = (name, id) => {
   const [consume, setConsume] = useState(null);
   const url = useUrl();

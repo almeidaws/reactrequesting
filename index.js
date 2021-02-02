@@ -6,3 +6,4 @@ export { default as useQueryParams } from "./useQueryParams";
 export { default as useQueryStateParam } from "./useQueryStateParam";
 export { default as useUrl } from "./useUrl";
 export { default as useUrlEvent } from "./useUrlEvent";
+export { default as useListenUrlEvent } from "./useUrlEvent";
