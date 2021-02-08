@@ -1,33 +1,33 @@
 {
-  "name": "react-requesting",
-  "version": "1.6.0",
-  "description": "Utilities hooks used to build the networking layer",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/almeidaws/reactrequesting"
-  },
-  "keywords": [
-    "react",
-    "requesting",
-    "utilities",
-    "useRequest"
-  ],
-  "author": "Gustavo Almeida",
-  "license": "ISC",
-  "dependencies": {
-    "lodash": "^4.17.20",
-    "query-string": "^6.13.7",
-    "react-router-dom": "^5.2.0",
-    "react-control-hooks": "^1.0.4"
-  },
-  "peerDependencies": {
-    "react": "^16.13.1"
-  },
-  "devDependencies": {
-    "prettier": "^2.2.1"
-  }
+	"name": "react-requesting",
+	"version": "1.6.1",
+	"description": "Utilities hooks used to build the networking layer",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/almeidaws/reactrequesting"
+	},
+	"keywords": [
+		"react",
+		"requesting",
+		"utilities",
+		"useRequest"
+	],
+	"author": "Gustavo Almeida",
+	"license": "ISC",
+	"dependencies": {
+		"lodash": "^4.17.20",
+		"query-string": "^6.13.7",
+		"react-router-dom": "^5.2.0",
+		"react-control-hooks": "^1.0.4"
+	},
+	"peerDependencies": {
+		"react": "^16.13.1"
+	},
+	"devDependencies": {
+		"prettier": "^2.2.1"
+	}
 }
