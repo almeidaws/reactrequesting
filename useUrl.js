@@ -6,7 +6,7 @@ import useQueryStateParam from './useQueryStateParam';
 const useUrl = () => {
 	const queryParams = useQueryParams();
 	const params = useParams();
-	const queryState = useQueryStateParam();
+	const queryState = useQueryStateParam({});
 
 	const dispatch = (object) => queryState[1](object);
 
