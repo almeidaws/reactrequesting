@@ -8,7 +8,7 @@ const useUrl = () => {
 	const params = useParams();
 	const queryState = useQueryStateParam();
 
-	const dispatch = (object) => queryState[1].mergeQueryState(object);
+	const dispatch = (object) => queryState[1](object);
 
 	const getPath = (path) => {
 		if (typeof path !== 'string')
