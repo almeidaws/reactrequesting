@@ -5,6 +5,9 @@ import { useEffect } from 'react';
 const useUrl = () => {
 	const queryParams = useQueryParams();
 	const params = useParams();
+	const queryState = useQueryStateParam();
+
+	const dispatch = (object) => queryState[1].mergeQueryState(object);
 
 	const getPath = (path) => {
 		if (typeof path !== 'string')
@@ -112,6 +115,8 @@ const useUrl = () => {
 	return {
 		...params,
 		...queryParams.getAll(),
+		s: queryState[0],
+		dispatch,
 		/**
 		 * @deprecated Since version 1.6.0. Will be deleted in version 2.0. Use setQuery instead.
 		 */

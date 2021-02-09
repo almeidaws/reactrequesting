@@ -1,6 +1,6 @@
 {
 	"name": "react-requesting",
-	"version": "1.6.2",
+	"version": "1.7.0",
 	"description": "Utilities hooks used to build the networking layer",
 	"main": "index.js",
 	"scripts": {
