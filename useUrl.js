@@ -1,6 +1,7 @@
 import useQueryParams from './useQueryParams';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import useQueryStateParam from './useQueryStateParam';
 
 const useUrl = () => {
 	const queryParams = useQueryParams();
