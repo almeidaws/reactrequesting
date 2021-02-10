@@ -36,17 +36,12 @@ const useUrl = () => {
 	};
 
 	const emit = (eventName, eventKey) => {
+		const differentiator = Math.random().toString(36).substring(7);
 		if (eventKey === undefined) {
-			setQuery(
-				'event',
-				`${eventName}.${Math.random().toString(36).substring(7)}`
-			);
+			setQuery('event', `${eventName};${differentiator}`);
 			return;
 		}
-		setQuery(
-			'event',
-			`${eventName}.${eventKey}.${Math.random().toString(36).substring(7)}`
-		);
+		setQuery('event', `${eventName}.${eventKey};${differentiator}`);
 	};
 
 	const deleteQuery = (key) => {

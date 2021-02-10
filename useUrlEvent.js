@@ -7,7 +7,8 @@ const useUrlEvent = (name, id) => {
 	const url = useUrl();
 	useSkippableEffect(
 		() => {
-			const event = url.event.split('.');
+			const [map] = url.event.split(';');
+			const event = map.split('.');
 			const eventName = event[0];
 			const eventKey = event[1];
 			if (eventName !== name) return;
