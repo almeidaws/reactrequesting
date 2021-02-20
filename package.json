@@ -50,6 +50,7 @@
     "@size-limit/preset-small-lib": "^4.9.2",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "@types/react-router-dom": "^5.1.7",
     "husky": "^5.0.9",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -59,6 +60,9 @@
     "typescript": "^4.1.5"
   },
   "dependencies": {
-    "react-control-hooks": "https://github.com/almeidaws/reactcontrolhooks.git#fl/feature/refactor"
+    "@types/query-string": "^6.3.0",
+    "query-string": "^6.14.0",
+    "react-control-hooks": "https://github.com/almeidaws/reactcontrolhooks.git#fl/feature/refactor",
+    "react-router-dom": "^5.2.0"
   }
 }

@@ -1,17 +1,20 @@
-import { useFiredHook } from 'react-control-hooks';
+import { HookParams, Neutralizable, useFiredHook } from 'react-control-hooks';
 import useRequest from './useRequest';
-import { HookArgs, Hook } from 'react-control-hooks';
 
-const useFiredRequest = <P, R>(
-  request: (...args: HookArgs<P>) => R,
-  requestBody: P
+const useFiredRequest = <P extends HookParams, R>(
+  args: Neutralizable<{
+    requestFunction: (args: P) => Promise<R>;
+    requestBody: P;
+  }>
 ) => {
-  const [fire, result] = useFiredHook<
-    Hook<P>,
-    ((...args: HookArgs<P>) => R) | P
-  >(useRequest, request, requestBody);
-  const fireWithRequestFunction = requestBody => {
-    if (requestBody !== undefined) fire(request, requestBody);
+  const [fire, result] = useFiredHook(useRequest, args);
+  const fireWithRequestFunction = (
+    args: Neutralizable<{
+      requestFunction: (args: P) => Promise<R>;
+      requestBody: P;
+    }>
+  ) => {
+    if (args !== undefined) fire(args);
     else fire();
   };
   return [fireWithRequestFunction, result];
