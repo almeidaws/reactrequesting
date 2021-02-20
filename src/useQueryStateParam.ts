@@ -1,9 +1,17 @@
 import useQueryParams from './useQueryParams';
 import { useEffect } from 'react';
+import { SimpleObject } from './Types';
+
 /**
  * @deprecated Since version 1.4.1 Will be deleted in version 2.0. Use useUrl() instead.
  */
-const useQueryStateParam = <P extends {}>(initialState: P) => {
+const useQueryStateParam = <P extends SimpleObject>(
+  initialState: P
+): [
+  SimpleObject,
+  (newState: SimpleObject) => void,
+  string | string[] | undefined
+] => {
   const queryParams = useQueryParams();
 
   useEffect(() => {
@@ -23,7 +31,7 @@ const useQueryStateParam = <P extends {}>(initialState: P) => {
       JSON.parse(atob(queryParams.get('s') as string))) ||
     initialState;
 
-  const mergeQueryState = (newState: { [key: string]: string | number }) => {
+  const mergeQueryState = (newState: SimpleObject) => {
     if (state === null || state === undefined) {
       queryParams.set(['s', undefined]);
     } else {

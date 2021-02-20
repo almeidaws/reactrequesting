@@ -39,7 +39,7 @@ const useQueryParams = () => {
     }
   };
 
-  const setParams = (params: [string, string][]) => {
+  const setParams = (params: Property[]) => {
     let newParams = queryString.parse(window.location.search);
     const queryParams = Object.entries(newParams).reduce(
       (acc, [name, value]) => ({
