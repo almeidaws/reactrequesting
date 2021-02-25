@@ -6,10 +6,18 @@ const useFiredRequest = <P extends HookParams, R>(
     requestFunction: (args: P) => Promise<R>;
     requestBody: P;
   }>
-) => {
+): [
+  (
+    args?: Neutralizable<{
+      requestFunction: (args: P) => Promise<R>;
+      requestBody: P;
+    }>
+  ) => void,
+  [R | null, Error | null]
+] => {
   const [fire, result] = useFiredHook(useRequest, args);
   const fireWithRequestFunction = (
-    args: Neutralizable<{
+    args?: Neutralizable<{
       requestFunction: (args: P) => Promise<R>;
       requestBody: P;
     }>
