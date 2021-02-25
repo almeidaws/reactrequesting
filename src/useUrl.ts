@@ -2,9 +2,9 @@ import useQueryParams from './useQueryParams';
 import { useParams } from 'react-router-dom';
 import useQueryStateParam from './useQueryStateParam';
 import Property from './Types/Property';
-import { SimpleObject } from './Types';
+import { SimpleObject, Url } from './Types';
 
-const useUrl = () => {
+const useUrl = (): Url => {
   const queryParams = useQueryParams();
   const params: { [key: string]: string | undefined } = useParams();
   const queryState = useQueryStateParam({});
@@ -55,8 +55,8 @@ const useUrl = () => {
   };
 
   return {
-    ...params,
-    ...queryParams.getAll(),
+    path: params,
+    query: queryParams.getAll(),
     state: queryState[0],
     dispatch,
     getPath,
