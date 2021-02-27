@@ -19,6 +19,8 @@ const useRequest = <P extends HookParams, R>(
       return;
     }
 
+    console.log('args');
+    console.log(args);
     if (requestFunction !== undefined && requestBody !== undefined)
       requestFunction(requestBody)
         .then(response => setResult(response))
@@ -28,7 +30,12 @@ const useRequest = <P extends HookParams, R>(
       setResult(null);
       setError(null);
     };
-  }, [args]);
+  }, [
+    args !== null && args !== undefined
+      ? JSON.stringify(args.requestBody)
+      : null,
+  ]);
+
   return [result, error];
 };
 
