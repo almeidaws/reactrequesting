@@ -2,9 +2,6 @@ import useQueryParams from './useQueryParams';
 import { useEffect } from 'react';
 import { SimpleObject } from './Types';
 
-/**
- * @deprecated Since version 1.4.1 Will be deleted in version 2.0. Use useUrl() instead.
- */
 const useQueryStateParam = <P extends SimpleObject>(
   initialState: P
 ): [

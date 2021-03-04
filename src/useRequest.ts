@@ -19,8 +19,6 @@ const useRequest = <P extends HookParams, R>(
       return;
     }
 
-    console.log('args');
-    console.log(args);
     if (requestFunction !== undefined && requestBody !== undefined)
       requestFunction(requestBody)
         .then(response => setResult(response))

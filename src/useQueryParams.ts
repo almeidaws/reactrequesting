@@ -5,9 +5,6 @@ import Property from './Types/Property';
 import QueryParams from './Types/QueryParams';
 import { isProperties, isProperty } from './Types';
 
-/**
- * @deprecated Since version 1.6.2 Will be deleted in version 2.0. Use useUrl() instead.
- */
 const useQueryParams = () => {
   const history = useHistory();
 

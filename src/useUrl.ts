@@ -24,7 +24,7 @@ const useUrl = (): Url => {
     queryParams.set([key, value]);
   };
 
-  const emit = (eventName: string, eventKey: string) => {
+  const emit = (eventName: string, eventKey?: string) => {
     const differentiator = Math.random()
       .toString(36)
       .substring(7);
@@ -40,14 +40,14 @@ const useUrl = (): Url => {
     queryParams.set([key, undefined]);
   };
 
-  const setQueryIfUndefined = (key: string, value: string | undefined) => {
+  const setQueryIfUndefined = ([key, value]: Property) => {
     if (key.trim().length === 0) throw new Error("'key' can't be empty");
     if (typeof value === 'string' && value.trim().length === 0)
       throw new Error("'value' can't be empty");
     queryParams.setIfUndefined([key, value]);
   };
 
-  const setQueryIfNotUndefined = (key: string, value: string | undefined) => {
+  const setQueryIfNotUndefined = ([key, value]: Property) => {
     if (key.trim().length === 0) throw new Error("'key' can't be empty");
     if (typeof value === 'string' && value.trim().length === 0)
       throw new Error("'value' can't be empty");
