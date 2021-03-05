@@ -2,15 +2,7 @@ import { HookParams, Neutralizable, useFiredHook } from 'react-control-hooks';
 import useRequest from './useRequest';
 
 const useFiredRequest = <P extends HookParams, R>(
-  args:
-    | {
-        requestFunction: (args?: P) => Promise<R>;
-        requestBody?: Neutralizable<P>;
-      }
-    | {
-        requestFunction: (args: P) => Promise<R>;
-        requestBody?: Neutralizable<P>;
-      }
+  requestFunction: ((args?: P) => Promise<R>) | ((args: P) => Promise<R>)
 ): [
   (
     | ((requestBody?: Neutralizable<P>) => void)
@@ -31,16 +23,11 @@ const useFiredRequest = <P extends HookParams, R>(
     >
   ) => {
     const requestBody = innerArgs === null ? null : innerArgs?.requestBody;
-    return useRequest({ requestFunction: args.requestFunction, requestBody });
+    return useRequest({ requestFunction: requestFunction, requestBody });
   };
-  const [fire, result] = useFiredHook(_useRequest, {
-    requestFunction: args.requestFunction,
-    requestBody: args.requestBody,
-  });
+  const [fire, result] = useFiredHook(_useRequest);
   const fireWithRequestFunction = (requestBody?: Neutralizable<P>) => {
-    if (args !== undefined)
-      fire({ requestFunction: args.requestFunction, requestBody });
-    else fire();
+    fire({ requestFunction: requestFunction, requestBody });
   };
   return [fireWithRequestFunction, result];
 };
