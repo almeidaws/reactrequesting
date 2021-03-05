@@ -1,10 +1,17 @@
 import { useEffect, useState } from 'react';
 import { HookParams, Neutralizable } from 'react-control-hooks';
 
-const useRequest = <P extends HookParams, R>(args: {
-  requestFunction: (args?: P) => Promise<R>;
-  requestBody?: Neutralizable<P>;
-}): [R | null, Error | null] => {
+const useRequest = <P extends HookParams, R>(
+  args:
+    | {
+        requestFunction: (args?: P) => Promise<R>;
+        requestBody?: Neutralizable<P>;
+      }
+    | {
+        requestFunction: (args: P) => Promise<R>;
+        requestBody?: Neutralizable<P>;
+      }
+): [R | null, Error | null] => {
   const requestFunction = args.requestFunction;
   const requestBody = args?.requestBody;
   const [result, setResult] = useState<R | null>(null);
@@ -17,9 +24,10 @@ const useRequest = <P extends HookParams, R>(args: {
       return;
     }
 
-    requestFunction(requestBody)
-      .then(response => setResult(response))
-      .catch(error => setError(error));
+    if (requestBody !== undefined)
+      requestFunction(requestBody)
+        .then(response => setResult(response))
+        .catch(error => setError(error));
 
     return () => {
       setResult(null);
