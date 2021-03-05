@@ -1,28 +1,26 @@
 import { HookParams, Neutralizable, useFiredHook } from 'react-control-hooks';
 import useRequest from './useRequest';
 
-const useFiredRequest = <P extends HookParams, R>(
-  args: Neutralizable<{
-    requestFunction: (args: P) => Promise<R>;
-    requestBody: P;
-  }>
-): [
-  (
-    args?: Neutralizable<{
-      requestFunction: (args: P) => Promise<R>;
-      requestBody: P;
-    }>
-  ) => void,
-  [R | null, Error | null]
-] => {
-  const [fire, result] = useFiredHook(useRequest, args);
-  const fireWithRequestFunction = (
-    args?: Neutralizable<{
-      requestFunction: (args: P) => Promise<R>;
-      requestBody: P;
+const useFiredRequest = <P extends HookParams, R>(args: {
+  requestFunction: (args?: P) => Promise<R>;
+  requestBody?: Neutralizable<P>;
+}): [(requestBody?: Neutralizable<P>) => void, [R | null, Error | null]] => {
+  const _useRequest = (
+    innerArgs?: Neutralizable<{
+      requestFunction: (args?: P) => Promise<R>;
+      requestBody?: Neutralizable<P>;
     }>
   ) => {
-    if (args !== undefined) fire(args);
+    const requestBody = innerArgs === null ? null : innerArgs?.requestBody;
+    return useRequest({ requestFunction: args.requestFunction, requestBody });
+  };
+  const [fire, result] = useFiredHook(_useRequest, {
+    requestFunction: args.requestFunction,
+    requestBody: args.requestBody,
+  });
+  const fireWithRequestFunction = (requestBody?: Neutralizable<P>) => {
+    if (args !== undefined)
+      fire({ requestFunction: args.requestFunction, requestBody });
     else fire();
   };
   return [fireWithRequestFunction, result];
