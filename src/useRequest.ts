@@ -11,11 +11,12 @@ const useRequest = <P extends HookParams, R>(
         requestFunction: (args: P) => Promise<R>;
         requestBody?: Neutralizable<P>;
       }
-): [R | null, Error | null] => {
+): { result: R | null; error: Error | null; isLoading: boolean } => {
   const requestFunction = args.requestFunction;
   const requestBody = args?.requestBody;
   const [result, setResult] = useState<R | null>(null);
   const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (requestBody === null) {
@@ -24,10 +25,13 @@ const useRequest = <P extends HookParams, R>(
       return;
     }
 
-    if (requestBody !== undefined)
+    if (requestBody !== undefined) {
+      setIsLoading(true);
       requestFunction(requestBody)
         .then(response => setResult(response))
-        .catch(error => setError(error));
+        .catch(error => setError(error))
+        .finally(() => setIsLoading(false));
+    }
 
     return () => {
       setResult(null);
@@ -35,7 +39,7 @@ const useRequest = <P extends HookParams, R>(
     };
   }, [JSON.stringify(args.requestBody)]);
 
-  return [result, error];
+  return { result, error, isLoading };
 };
 
 export default useRequest;

@@ -8,7 +8,7 @@ const useFiredRequest = <P extends HookParams, R>(
     | ((requestBody?: Neutralizable<P>) => void)
     | ((requestBody: Neutralizable<P>) => void)
   ),
-  [R | null, Error | null]
+  { result: R | null; error: Error | null; isLoading: boolean }
 ] => {
   const _useRequest = (
     innerArgs?: Neutralizable<
@@ -27,7 +27,7 @@ const useFiredRequest = <P extends HookParams, R>(
   };
   const [fire, result] = useFiredHook(_useRequest);
   const fireWithRequestFunction = (requestBody?: Neutralizable<P>) => {
-    fire({ requestFunction: requestFunction, requestBody });
+    fire({ requestFunction, requestBody });
   };
   return [fireWithRequestFunction, result];
 };
