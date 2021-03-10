@@ -1,2 +1,2 @@
-type Property = [string, string | undefined];
+type Property = [string, string | string[] | undefined];
 export default Property;
