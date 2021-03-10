@@ -11,7 +11,12 @@ const useRequest = <P extends HookParams, R>(
         requestFunction: (args: P) => Promise<R>;
         requestBody?: Neutralizable<P>;
       }
-): { result: R | null; error: Error | null; isLoading: boolean } => {
+): {
+  result: R | null;
+  error: Error | null;
+  isLoading: boolean;
+  setResult: (responseBody: R) => void;
+} => {
   const requestFunction = args.requestFunction;
   const requestBody = args?.requestBody;
   const [result, setResult] = useState<R | null>(null);
@@ -39,7 +44,7 @@ const useRequest = <P extends HookParams, R>(
     };
   }, [JSON.stringify(args.requestBody)]);
 
-  return { result, error, isLoading };
+  return { result, error, isLoading, setResult };
 };
 
 export default useRequest;

@@ -8,7 +8,12 @@ const useFiredRequest = <P extends HookParams, R>(
     | ((requestBody?: Neutralizable<P>) => void)
     | ((requestBody: Neutralizable<P>) => void)
   ),
-  { result: R | null; error: Error | null; isLoading: boolean }
+  {
+    result: R | null;
+    error: Error | null;
+    isLoading: boolean;
+    setResult: (responseBody: R) => void;
+  }
 ] => {
   const _useRequest = (
     innerArgs?: Neutralizable<
