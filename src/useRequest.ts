@@ -15,7 +15,7 @@ const useRequest = <P extends HookParams, R>(
   result: R | null;
   error: Error | null;
   isLoading: boolean;
-  setResult: (responseBody: R) => void;
+  setResult: (responseBody: R | null) => void;
   refetch: () => void;
 } => {
   const requestFunction = args.requestFunction;
