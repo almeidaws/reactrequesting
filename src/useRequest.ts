@@ -24,6 +24,9 @@ const useRequest = <P extends HookParams, R>(
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(0);
+  const [refetch] = useState(() => () => {
+    setCount(prev => prev + 1);
+  });
 
   useEffect(() => {
     if (requestBody === null) {
@@ -40,10 +43,6 @@ const useRequest = <P extends HookParams, R>(
         .finally(() => setIsLoading(false));
     }
   }, [JSON.stringify(args.requestBody), count]);
-
-  const refetch = () => {
-    setCount(prev => prev + 1);
-  };
 
   return { result, error, isLoading, setResult, refetch };
 };

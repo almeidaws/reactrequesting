@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import useQueryStateParam from './useQueryStateParam';
 import Property from './Types/Property';
 import { SimpleObject, Url } from './Types';
+import { useEffect, useState } from 'react';
 
 const useUrl = (): Url => {
   const queryParams = useQueryParams();
@@ -54,7 +55,7 @@ const useUrl = (): Url => {
     queryParams.setIfNotUndefined([key, value]);
   };
 
-  return {
+  const [url, setUrl] = useState({
     path: params,
     query: queryParams.getAll(),
     state: queryState[0],
@@ -65,7 +66,28 @@ const useUrl = (): Url => {
     setQueryIfNotUndefined,
     deleteQuery,
     emit,
-  };
+  });
+
+  useEffect(() => {
+    setUrl({
+      path: params,
+      query: queryParams.getAll(),
+      state: queryState[0],
+      dispatch,
+      getPath,
+      setQuery,
+      setQueryIfUndefined,
+      setQueryIfNotUndefined,
+      deleteQuery,
+      emit,
+    });
+  }, [
+    JSON.stringify(params),
+    JSON.stringify(queryParams.getAll()),
+    JSON.stringify(queryState[0]),
+  ]);
+
+  return url;
 };
 
 export default useUrl;
