@@ -39,16 +39,12 @@ const useRequest = <P extends HookParams, R>(
         .catch(error => setError(error))
         .finally(() => setIsLoading(false));
     }
-
-    return () => {
-      setResult(null);
-      setError(null);
-    };
   }, [JSON.stringify(args.requestBody), count]);
 
   const refetch = () => {
     setCount(prev => prev + 1);
   };
+
   return { result, error, isLoading, setResult, refetch };
 };
 
