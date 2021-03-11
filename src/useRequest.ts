@@ -16,12 +16,14 @@ const useRequest = <P extends HookParams, R>(
   error: Error | null;
   isLoading: boolean;
   setResult: (responseBody: R) => void;
+  refetch: () => void;
 } => {
   const requestFunction = args.requestFunction;
   const requestBody = args?.requestBody;
   const [result, setResult] = useState<R | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (requestBody === null) {
@@ -42,9 +44,12 @@ const useRequest = <P extends HookParams, R>(
       setResult(null);
       setError(null);
     };
-  }, [JSON.stringify(args.requestBody)]);
+  }, [JSON.stringify(args.requestBody), count]);
 
-  return { result, error, isLoading, setResult };
+  const refetch = () => {
+    setCount(prev => prev + 1);
+  };
+  return { result, error, isLoading, setResult, refetch };
 };
 
 export default useRequest;
