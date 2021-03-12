@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { SimpleObject } from './Types';
 
 const useQueryStateParam = <P extends SimpleObject>(
-  initialState: P
+  initialState?: P
 ): [
   SimpleObject,
   (newState: SimpleObject) => void,

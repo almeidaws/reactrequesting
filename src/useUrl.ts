@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 const useUrl = (): Url => {
   const queryParams = useQueryParams();
   const params: { [key: string]: string | undefined } = useParams();
-  const queryState = useQueryStateParam({});
+  const queryState = useQueryStateParam();
 
   const dispatch = (object: SimpleObject) => queryState[1](object);
 
