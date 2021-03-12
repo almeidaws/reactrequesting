@@ -10,11 +10,10 @@ const useQueryParams = () => {
 
   const setParam = (
     name: string,
-    value: string | undefined,
+    value: string | string[] | undefined,
     currentParams: QueryParams
   ): QueryParams => {
-    const isRemovingParam = value === undefined;
-    if (isRemovingParam) {
+    if (value === undefined) {
       const withoutParam = { ...currentParams, [name]: undefined };
       const isTheLastParam =
         Object.values(withoutParam).filter(value => value !== undefined)
@@ -28,7 +27,35 @@ const useQueryParams = () => {
       }
       return withoutParam;
     } else {
-      const withParam = { ...currentParams, [name]: value };
+      let withParam: QueryParams;
+      if (typeof value === 'string') {
+        if (currentParams[name] === undefined)
+          withParam = { ...currentParams, [name]: value };
+        else if (Array.isArray(currentParams[name]))
+          withParam = {
+            ...currentParams,
+            [name]: [...(currentParams[name] as string[]), value],
+          };
+        else
+          withParam = {
+            ...currentParams,
+            [name]: [currentParams[name] as string, value],
+          };
+      } else {
+        if (currentParams[name] === undefined)
+          withParam = { ...currentParams, [name]: value };
+        else if (Array.isArray(currentParams[name]))
+          withParam = {
+            ...currentParams,
+            [name]: [...(currentParams[name] as string[]), ...value],
+          };
+        else
+          withParam = {
+            ...currentParams,
+            [name]: [currentParams[name] as string, ...value],
+          };
+      }
+
       history.replace(
         `${window.location.pathname}?${queryString.stringify(withParam)}`
       );
