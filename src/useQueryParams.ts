@@ -28,33 +28,24 @@ const useQueryParams = () => {
       return withoutParam;
     } else {
       let withParam: QueryParams;
-      if (typeof value === 'string') {
-        if (currentParams[name] === undefined)
-          withParam = { ...currentParams, [name]: value };
-        else if (Array.isArray(currentParams[name]))
-          withParam = {
-            ...currentParams,
-            [name]: [...(currentParams[name] as string[]), value],
-          };
-        else
-          withParam = {
-            ...currentParams,
-            [name]: [currentParams[name] as string, value],
-          };
-      } else {
-        if (currentParams[name] === undefined)
-          withParam = { ...currentParams, [name]: value };
-        else if (Array.isArray(currentParams[name]))
-          withParam = {
-            ...currentParams,
-            [name]: [...(currentParams[name] as string[]), ...value],
-          };
-        else
-          withParam = {
-            ...currentParams,
-            [name]: [currentParams[name] as string, ...value],
-          };
-      }
+      if (currentParams[name] === undefined)
+        withParam = { ...currentParams, [name]: value };
+      else if (Array.isArray(currentParams[name]))
+        withParam = {
+          ...currentParams,
+          [name]: [
+            ...(currentParams[name] as string[]),
+            ...(Array.isArray(value) ? value : [value]),
+          ],
+        };
+      else
+        withParam = {
+          ...currentParams,
+          [name]: [
+            currentParams[name] as string,
+            ...(Array.isArray(value) ? value : [value]),
+          ],
+        };
 
       history.replace(
         `${window.location.pathname}?${queryString.stringify(withParam)}`
