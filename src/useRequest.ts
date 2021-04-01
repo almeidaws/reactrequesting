@@ -4,12 +4,12 @@ import { HookParams, Neutralizable } from 'react-control-hooks';
 const useRequest = <P extends HookParams, R>(
   args:
     | {
-        requestFunction: (args?: P) => Promise<R>;
-        requestBody?: Neutralizable<P>;
+        requestFunction: () => Promise<R>;
+        requestBody?: null;
       }
     | {
         requestFunction: (args: P) => Promise<R>;
-        requestBody?: Neutralizable<P>;
+        requestBody: Neutralizable<P>;
       }
 ): {
   result: R | null;
@@ -35,13 +35,15 @@ const useRequest = <P extends HookParams, R>(
       return;
     }
 
-    if (requestBody !== undefined) {
-      setIsLoading(true);
-      requestFunction(requestBody)
-        .then(response => setResult(response))
-        .catch(error => setError(error))
-        .finally(() => setIsLoading(false));
-    }
+    setIsLoading(true);
+    const request = () =>
+      requestFunction.length === 0
+        ? (requestFunction as () => Promise<R>)()
+        : requestFunction(requestBody as P);
+    request()
+      .then(response => setResult(response))
+      .catch(error => setError(error))
+      .finally(() => setIsLoading(false));
   }, [JSON.stringify(args.requestBody), count]);
 
   return { result, error, isLoading, setResult, refetch };
