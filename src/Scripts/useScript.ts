@@ -6,7 +6,7 @@ import { Url } from '../Types';
 type Script = { previous: string; current: string; action: (url: Url) => void };
 
 const useScript = (
-  script: Neutralizable<Script>
+  script?: Neutralizable<Script>
 ): Neutralizable<Script> | null => {
   const [pushedScript, setPushedScript] = useState<Neutralizable<Script>>(null);
   useSkippableEffect(() => {
