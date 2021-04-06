@@ -12,9 +12,12 @@ const matches = (previous: string, params: QueryParams) => {
 
 const useRunPendingScripts = () => {
   const url = useUrl();
-  const params = Object.entries(url)
+  const params = (Object.entries(url)
     .filter(entry => typeof entry[1] === 'string' || entry[1] === undefined)
-    .reduce((acc, [key, value]) => ({ ...acc, [key]: value }));
+    .reduce((acc, [key, value]) => ({
+      ...acc,
+      [key]: value,
+    })) as unknown) as QueryParams;
   const paramsAsString = JSON.stringify(params);
   const [previousParams, setPreviousParams] = useState(params);
 
@@ -27,7 +30,7 @@ const useRunPendingScripts = () => {
 
     setPreviousParams(params);
     while (scripts.length > 0) scripts.pop();
-    while (remaining.length > 0) scripts.push(remaining.pop());
+    while (remaining.length > 0) scripts.push(remaining.pop()!);
     pending.forEach(({ action }) => action(url));
   }, [paramsAsString]);
 };
