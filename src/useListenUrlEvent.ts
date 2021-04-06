@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSkippableEffect } from 'react-control-hooks';
 import useUrl from './useUrl';
 
-const useUrlEvent = (name: string, id?: string) => {
+const useListenUrlEvent = (name: string, id?: string) => {
   const [consume, setConsume] = useState<(() => void) | null>(null);
   const url = useUrl();
   useSkippableEffect(
@@ -24,4 +24,4 @@ const useUrlEvent = (name: string, id?: string) => {
   return consume;
 };
 
-export default useUrlEvent;
+export default useListenUrlEvent;
