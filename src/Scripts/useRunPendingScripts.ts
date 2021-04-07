@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useUrl } from '../index';
-import _ from 'lodash';
 import scripts from './scripts';
 import { QueryParams } from '../Types';
+import { partition } from '../PureFunctions';
 
 const matches = (previous: string, params: QueryParams) => {
   const entries = Object.entries(previous);
@@ -22,7 +22,7 @@ const useRunPendingScripts = () => {
   const [previousParams, setPreviousParams] = useState(params);
 
   useEffect(() => {
-    const [pending, remaining] = _.partition(
+    const [pending, remaining] = partition(
       scripts,
       ({ previous, current }) =>
         matches(previous, previousParams) && matches(current, params)
