@@ -12,12 +12,15 @@ const matches = (previous: string, params: QueryParams) => {
 
 const useRunPendingScripts = () => {
   const url = useUrl();
-  const params = (Object.entries(url)
+  const params = Object.entries(url.query)
     .filter(entry => typeof entry[1] === 'string' || entry[1] === undefined)
-    .reduce((acc, [key, value]) => ({
-      ...acc,
-      [key]: value,
-    })) as unknown) as QueryParams;
+    .reduce<QueryParams>(
+      (acc, [key, value]) => ({
+        ...acc,
+        [key]: value,
+      }),
+      {}
+    );
   const paramsAsString = JSON.stringify(params);
   const [previousParams, setPreviousParams] = useState(params);
 
