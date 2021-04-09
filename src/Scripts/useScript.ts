@@ -10,6 +10,8 @@ const useScript = (
 ): Neutralizable<Script> | null => {
   const [pushedScript, setPushedScript] = useState<Neutralizable<Script>>(null);
   useSkippableEffect(() => {
+    if (script === null) return;
+    if (script === undefined) return;
     scripts.push(script);
     setPushedScript(script);
   }, [script]);
