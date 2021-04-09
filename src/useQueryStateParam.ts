@@ -29,12 +29,8 @@ const useQueryStateParam = <P extends SimpleObject>(
     initialState;
 
   const mergeQueryState = (newState: SimpleObject) => {
-    if (state === null || state === undefined) {
-      queryParams.set(['s', undefined]);
-    } else {
-      const encoded = btoa(JSON.stringify({ ...state, ...newState }));
-      queryParams.set(['s', encoded]);
-    }
+    const encoded = btoa(JSON.stringify({ ...state, ...newState }));
+    queryParams.set(['s', encoded]);
   };
 
   return [state, mergeQueryState, queryParams.get('s')];
