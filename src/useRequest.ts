@@ -56,21 +56,14 @@ const useRequest = <P extends HookParams, R>(
         : requestFunction(requestBody as P);
     request()
       .then(response =>
-        setResponse(({ error, isLoading }) => ({
+        setResponse(({ error }) => ({
           result: response,
-          error,
-          isLoading,
-        }))
-      )
-      .catch(error =>
-        setResponse(({ result, isLoading }) => ({ result, error, isLoading }))
-      )
-      .finally(() =>
-        setResponse(({ result, error }) => ({
-          result,
           error,
           isLoading: false,
         }))
+      )
+      .catch(error =>
+        setResponse(({ result }) => ({ result, error, isLoading: false }))
       );
   }, [JSON.stringify(args.requestBody), count]);
 
