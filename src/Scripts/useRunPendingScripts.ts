@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useUrl } from '../index';
 import scripts from './scripts';
 import { QueryParams } from '../Types';
 import { partition } from '../PureFunctions';
+import useUrl from '../useUrl';
 
 const matches = (previous: string, params: QueryParams) => {
   const entries = Object.entries(previous);

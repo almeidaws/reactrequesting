@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { HookParams, Neutralizable } from 'react-control-hooks';
 
 const useRequest = <P extends HookParams, R>(
@@ -20,31 +20,58 @@ const useRequest = <P extends HookParams, R>(
 } => {
   const requestFunction = args.requestFunction;
   const requestBody = args?.requestBody;
-  const [result, setResult] = useState<R | null>(null);
-  const [error, setError] = useState<Error | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [{ result, error, isLoading }, setResponse] = useState<{
+    result: R | null;
+    error: Error | null;
+    isLoading: boolean;
+  }>({ result: null, error: null, isLoading: true });
+  const setResult = useMemo(
+    () => (requestBody: R | null) => {
+      setResponse(({ error, isLoading }) => ({
+        result: requestBody,
+        error,
+        isLoading,
+      }));
+    },
+    []
+  );
   const [count, setCount] = useState(0);
-  const [refetch] = useState(() => () => {
-    setCount(prev => prev + 1);
-  });
+  const refetch = useMemo(
+    () => () => {
+      setCount(prev => prev + 1);
+    },
+    []
+  );
 
   useEffect(() => {
     if (requestBody === null) {
-      setResult(null);
-      setError(null);
-      setIsLoading(false);
+      setResponse({ result: null, error: null, isLoading: false });
       return;
     }
 
-    setIsLoading(true);
+    setResponse(({ result, error }) => ({ result, error, isLoading: true }));
     const request = () =>
       requestFunction.length === 0
         ? (requestFunction as () => Promise<R>)()
         : requestFunction(requestBody as P);
     request()
-      .then(response => setResult(response))
-      .catch(error => setError(error))
-      .finally(() => setIsLoading(false));
+      .then(response =>
+        setResponse(({ error, isLoading }) => ({
+          result: response,
+          error,
+          isLoading,
+        }))
+      )
+      .catch(error =>
+        setResponse(({ result, isLoading }) => ({ result, error, isLoading }))
+      )
+      .finally(() =>
+        setResponse(({ result, error }) => ({
+          result,
+          error,
+          isLoading: false,
+        }))
+      );
   }, [JSON.stringify(args.requestBody), count]);
 
   return { result, error, isLoading, setResult, refetch };
