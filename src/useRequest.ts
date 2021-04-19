@@ -22,7 +22,7 @@ const useRequest = <P extends HookParams, R>(
   const requestBody = args?.requestBody;
   const [result, setResult] = useState<R | null>(null);
   const [error, setError] = useState<Error | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [count, setCount] = useState(0);
   const [refetch] = useState(() => () => {
     setCount(prev => prev + 1);
@@ -32,6 +32,7 @@ const useRequest = <P extends HookParams, R>(
     if (requestBody === null) {
       setResult(null);
       setError(null);
+      setIsLoading(false);
       return;
     }
 
