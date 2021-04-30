@@ -27,7 +27,7 @@ const useArgfulFiredRequest = <P extends HookParams, R>(
       requestBody: innerArgs?.requestBody ?? null,
     });
   };
-  const [fire, result] = useFiredHook(useRequestAdapter);
+  const { fire, result } = useFiredHook(useRequestAdapter);
   const fireWithRequestFunction = (requestBody: Neutralizable<P>) => {
     fire({ requestFunction, requestBody });
   };

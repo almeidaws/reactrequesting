@@ -68,6 +68,6 @@
     "@types/query-string": "^6.3.0",
     "loadash": "^1.0.0",
     "query-string": "^6.14.0",
-    "react-control-hooks": "^3.0.0-alpha.1"
+    "react-control-hooks": "^3.0.0-alpha.5"
   }
 }
