@@ -7,7 +7,7 @@ type Script = { previous: string; current: string; action: (url: Url) => void };
 
 const useScript = (
   script?: Neutralizable<Script>
-): Neutralizable<Script> | null => {
+): { createdScript: Script | null } => {
   const [pushedScript, setPushedScript] = useState<Neutralizable<Script>>(null);
   useSkippableEffect(() => {
     if (script === null) return;
@@ -15,7 +15,7 @@ const useScript = (
     scripts.push(script);
     setPushedScript(script);
   }, [script]);
-  return pushedScript;
+  return { createdScript: pushedScript };
 };
 
 export default useScript;
