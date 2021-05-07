@@ -26,7 +26,7 @@ const useArglessFiredRequest = <R>(
       innerArgs === undefined ? undefined : innerArgs?.requestBody;
     return useRequest({ requestFunction: requestFunction, requestBody });
   };
-  const { fire, result } = useFiredHook(useRequestAdapter);
+  const { fire, ...result } = useFiredHook(useRequestAdapter);
   const fireWithRequestFunction = (requestBody?: null) => {
     fire({ requestFunction, requestBody });
   };
