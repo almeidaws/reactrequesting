@@ -3,73 +3,79 @@ import { useParams } from 'react-router-dom';
 import useQueryStateParam from './useQueryStateParam';
 import Property from './Types/Property';
 import { SimpleObject, Url } from './Types';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
 const useUrl = (): Url => {
   const queryParams = useQueryParams();
   const params: { [key: string]: string | undefined } = useParams();
   const queryState = useQueryStateParam();
+  const dispatch = useMemo(
+    () => (object: SimpleObject) => queryState[1](object),
+    []
+  );
+  const getPath = useMemo(
+    () => (path: string): string | undefined => {
+      if (path.trim().length === 0) throw new Error("'path' can't be empty");
+      return params[path];
+    },
+    [params]
+  );
 
-  const dispatch = (object: SimpleObject) => queryState[1](object);
+  const setQuery = useMemo(
+    () => (prop: Property) => {
+      const [key, value] = prop;
+      if (key.trim().length === 0) throw new Error("'key' can't be empty");
+      if (typeof value === 'string' && value.trim().length === 0)
+        throw new Error("'value' can't be empty");
+      queryParams.set([key, value]);
+    },
+    [queryParams]
+  );
 
-  const getPath = (path: string): string | undefined => {
-    if (path.trim().length === 0) throw new Error("'path' can't be empty");
-    return params[path];
-  };
+  const emit = useMemo(
+    () => (eventName: string, eventKey?: string) => {
+      const differentiator = Math.random()
+        .toString(36)
+        .substring(7);
+      if (eventKey === undefined) {
+        setQuery(['event', `${eventName};${differentiator}`]);
+        return;
+      }
+      setQuery(['event', `${eventName}.${eventKey};${differentiator}`]);
+    },
+    [setQuery]
+  );
 
-  const setQuery = (prop: Property) => {
-    const [key, value] = prop;
-    if (key.trim().length === 0) throw new Error("'key' can't be empty");
-    if (typeof value === 'string' && value.trim().length === 0)
-      throw new Error("'value' can't be empty");
-    queryParams.set([key, value]);
-  };
+  const deleteQuery = useMemo(
+    () => (key: string) => {
+      if (key.trim().length === 0) throw new Error("'key' can't be empty");
+      queryParams.set([key, undefined]);
+    },
+    [queryParams]
+  );
 
-  const emit = (eventName: string, eventKey?: string) => {
-    const differentiator = Math.random()
-      .toString(36)
-      .substring(7);
-    if (eventKey === undefined) {
-      setQuery(['event', `${eventName};${differentiator}`]);
-      return;
-    }
-    setQuery(['event', `${eventName}.${eventKey};${differentiator}`]);
-  };
+  const setQueryIfUndefined = useMemo(
+    () => ([key, value]: Property) => {
+      if (key.trim().length === 0) throw new Error("'key' can't be empty");
+      if (typeof value === 'string' && value.trim().length === 0)
+        throw new Error("'value' can't be empty");
+      queryParams.setIfUndefined([key, value]);
+    },
+    [queryParams]
+  );
 
-  const deleteQuery = (key: string) => {
-    if (key.trim().length === 0) throw new Error("'key' can't be empty");
-    queryParams.set([key, undefined]);
-  };
+  const setQueryIfNotUndefined = useMemo(
+    () => ([key, value]: Property) => {
+      if (key.trim().length === 0) throw new Error("'key' can't be empty");
+      if (typeof value === 'string' && value.trim().length === 0)
+        throw new Error("'value' can't be empty");
+      queryParams.setIfNotUndefined([key, value]);
+    },
+    [queryParams]
+  );
 
-  const setQueryIfUndefined = ([key, value]: Property) => {
-    if (key.trim().length === 0) throw new Error("'key' can't be empty");
-    if (typeof value === 'string' && value.trim().length === 0)
-      throw new Error("'value' can't be empty");
-    queryParams.setIfUndefined([key, value]);
-  };
-
-  const setQueryIfNotUndefined = ([key, value]: Property) => {
-    if (key.trim().length === 0) throw new Error("'key' can't be empty");
-    if (typeof value === 'string' && value.trim().length === 0)
-      throw new Error("'value' can't be empty");
-    queryParams.setIfNotUndefined([key, value]);
-  };
-
-  const [url, setUrl] = useState({
-    path: params,
-    query: queryParams.getAll(),
-    state: queryState[0],
-    dispatch,
-    getPath,
-    setQuery,
-    setQueryIfUndefined,
-    setQueryIfNotUndefined,
-    deleteQuery,
-    emit,
-  });
-
-  useEffect(() => {
-    setUrl({
+  return useMemo(
+    () => ({
       path: params,
       query: queryParams.getAll(),
       state: queryState[0],
@@ -80,14 +86,13 @@ const useUrl = (): Url => {
       setQueryIfNotUndefined,
       deleteQuery,
       emit,
-    });
-  }, [
-    JSON.stringify(params),
-    JSON.stringify(queryParams.getAll()),
-    JSON.stringify(queryState[0]),
-  ]);
-
-  return url;
+    }),
+    [
+      JSON.stringify(params),
+      JSON.stringify(queryParams.getAll()),
+      JSON.stringify(queryState[0]),
+    ]
+  );
 };
 
 export default useUrl;
